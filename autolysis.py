@@ -3,7 +3,9 @@ import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import warnings
+
+# Set the default size for generated images
+IMAGE_SIZE = (512 / 100, 512 / 100)  # Convert pixels to inches (DPI = 100)
 
 def ensure_output_directory(csv_file):
     """
@@ -14,7 +16,19 @@ def ensure_output_directory(csv_file):
     os.makedirs(output_dir, exist_ok=True)
     return output_dir
 
-def analyze_data(data):
+def save_chart(output_dir, filename, plot_func):
+    """
+    Helper function to save charts with consistent size and naming.
+    """
+    filepath = os.path.join(output_dir, filename)
+    plt.figure(figsize=IMAGE_SIZE)
+    plot_func()
+    plt.xticks(rotation=90)  # Rotate x-axis labels to prevent overlap
+    plt.savefig(filepath, dpi=100, bbox_inches='tight')
+    plt.close()
+    print(f"Saved chart: {filepath}")
+
+def analyze_data(data, output_dir):
     """
     Perform generic analysis on the dataset and adapt to its structure.
     """
@@ -41,70 +55,70 @@ def analyze_data(data):
     missing = data.isnull().sum()
     print(missing)
 
-    # 4. Correlation Analysis
-    correlation = None
-    if numeric_cols.shape[1] > 1:  # Ensure there are at least two numeric columns
-        print("\nCorrelation Matrix:")
-        correlation = numeric_cols.corr()
-        print(correlation)
-
-        # Create and save correlation heatmap
-        plt.figure(figsize=(10, 8))
-        sns.heatmap(correlation, annot=True, fmt=".2f", cmap="coolwarm")
-        plt.title("Correlation Heatmap")
-        plt.savefig("correlation_heatmap.png")
-        plt.close()
-    else:
-        print("\nCorrelation Matrix: Not enough numeric columns to compute correlations.")
-
-    # 5. Outlier Detection
+    # 4. Outlier Detection
     print("\nOutlier Detection (Numeric Columns):")
     if not numeric_cols.empty:
         for col in numeric_cols.columns:
             mean, std = numeric_cols[col].mean(), numeric_cols[col].std()
             outliers = data[(data[col] > mean + 3 * std) | (data[col] < mean - 3 * std)]
             print(f"{col}: {len(outliers)} potential outliers detected.")
-    else:
-        print("No numeric columns for outlier detection.")
+
+    # 5. Correlation Analysis
+    correlation = None
+    if numeric_cols.shape[1] > 1:  # Ensure there are at least two numeric columns
+        print("\nCorrelation Matrix:")
+        correlation = numeric_cols.corr()
+        print(correlation)
 
     # 6. Categorical Column Analysis
+    print("\nCategorical Column Analysis:")
     if not categorical_cols.empty:
-        print("\nCategorical Column Distributions:")
         for col in categorical_cols.columns:
-            print(f"\nDistribution of '{col}':")
-            print(data[col].value_counts(normalize=True) * 100)
+            unique_values = data[col].nunique()
+            mode = data[col].mode()[0]
+            mode_frequency = (data[col].value_counts(normalize=True).iloc[0] * 100)
+            print(f"{col}: Unique values = {unique_values}, Mode = {mode} ({mode_frequency:.2f}%)")
     else:
-        print("\nNo categorical columns found for analysis.")
+        print("No categorical columns found for analysis.")
 
     # 7. Date Column Analysis
+    print("\nDate Column Analysis:")
     if date_cols:
-        print("\nDate Column Analysis:")
         for col in date_cols:
             data[col] = pd.to_datetime(data[col], errors='coerce')
             print(f"\nSummary for '{col}':")
             print(data[col].describe())
-
-        # Analyze trends over years and months
         if 'year' not in data.columns:
             data['year'] = data[date_cols[0]].dt.year
         if 'month' not in data.columns:
             data['month'] = data[date_cols[0]].dt.month
-
         print("\nEntries per Year:")
         print(data['year'].value_counts().sort_index())
-
         print("\nEntries per Month:")
         print(data['month'].value_counts().sort_index())
 
-        # Yearly trend visualization
-        data['year'].value_counts().sort_index().plot(kind='line', marker='o')
-        plt.title("Entries Per Year")
-        plt.xlabel("Year")
-        plt.ylabel("Count")
-        plt.savefig("yearly_trend.png")
-        plt.close()
-    else:
-        print("\nNo date columns found for analysis.")
+    # Define a priority queue for charts
+    chart_queue = []
+
+    # Add charts based on priority
+    if correlation is not None:
+        chart_queue.append(("correlation_heatmap.png", lambda: sns.heatmap(correlation, annot=True, fmt=".2f", cmap="coolwarm")))
+
+    if not numeric_cols.empty:
+        chart_queue.append(("outlier_boxplot.png", lambda: sns.boxplot(data=numeric_cols)))
+        chart_queue.append(("numeric_histograms.png", lambda: numeric_cols.hist(bins=15, figsize=(12, 8))))
+
+    if not categorical_cols.empty:
+        chart_queue.append(("categorical_distribution.png", lambda: sns.barplot(
+            data=data[categorical_cols].melt(), x="variable", y="value", estimator=len, ci=None
+        )))
+
+    if date_cols:
+        chart_queue.append(("yearly_trend.png", lambda: data['year'].value_counts().sort_index().plot(kind='line', marker='o')))
+
+    # Save only the top 5 charts
+    for i, (filename, plot_func) in enumerate(chart_queue[:5]):
+        save_chart(output_dir, filename, plot_func)
 
     return {
         "summary": data.describe(include='all'),
@@ -120,11 +134,11 @@ def generate_readme(data, filename, output_dir):
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write("# Automated Analysis Report\n\n")
         f.write(f"Analysis for dataset: `{filename}`\n\n")
-        
+
         # General dataset info
         f.write("## Dataset Overview\n")
         f.write(data.describe(include="all").to_markdown() + "\n\n")
-        
+
         # Categorical column distributions
         categorical_cols = data.select_dtypes(include="object").columns
         if not categorical_cols.empty:
@@ -132,15 +146,21 @@ def generate_readme(data, filename, output_dir):
             for col in categorical_cols:
                 f.write(f"### Distribution of '{col}'\n")
                 f.write(data[col].value_counts(normalize=True).to_markdown() + "\n\n")
-        
+
         # Add correlation matrix
         numeric_cols = data.select_dtypes(include="number")
         if numeric_cols.shape[1] > 1:
             f.write("## Correlation Matrix\n")
             f.write(numeric_cols.corr().to_markdown() + "\n\n")
 
-    print(f"README.md generated at {readme_path}!")
+        # Embed generated images
+        f.write("## Visualizations\n")
+        for chart in ["correlation_heatmap.png", "outlier_boxplot.png", "numeric_histograms.png", "categorical_distribution.png", "yearly_trend.png"]:
+            chart_path = os.path.join(output_dir, chart)
+            if os.path.exists(chart_path):
+                f.write(f"![{chart}]({chart})\n\n")
 
+    print(f"README.md generated at {readme_path}!")
 
 def main():
     print("Script execution started...")
@@ -189,7 +209,7 @@ def main():
 
     # Perform data analysis
     print("Performing data analysis...")
-    results = analyze_data(data)
+    results = analyze_data(data, output_dir)
 
     # Generate README.md
     generate_readme(data, csv_file, output_dir)
