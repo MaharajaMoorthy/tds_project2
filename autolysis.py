@@ -16,13 +16,21 @@ def ensure_output_directory(csv_file):
     os.makedirs(output_dir, exist_ok=True)
     return output_dir
 
-def save_chart(output_dir, filename, plot_func):
+def save_chart(output_dir, filename, plot_func, title=None, xlabel=None, ylabel=None, legend=False):
     """
-    Helper function to save charts with consistent size and naming.
+    Saves a chart with consistent size and annotations such as titles and labels.
     """
     filepath = os.path.join(output_dir, filename)
     plt.figure(figsize=IMAGE_SIZE)
     plot_func()
+    if title:
+        plt.title(title)
+    if xlabel:
+        plt.xlabel(xlabel)
+    if ylabel:
+        plt.ylabel(ylabel)
+    if legend:
+        plt.legend()
     plt.xticks(rotation=90)  # Rotate x-axis labels to prevent overlap
     plt.savefig(filepath, dpi=100, bbox_inches='tight')
     plt.close()
@@ -30,7 +38,7 @@ def save_chart(output_dir, filename, plot_func):
 
 def analyze_data(data, output_dir):
     """
-    Perform generic analysis on the dataset and adapt to its structure.
+    Perform a detailed analysis of the dataset and generate relevant insights and visualizations.
     """
     print("\nPerforming Basic Analysis...")
 
@@ -88,37 +96,42 @@ def analyze_data(data, output_dir):
             data[col] = pd.to_datetime(data[col], errors='coerce')
             print(f"\nSummary for '{col}':")
             print(data[col].describe())
-        if 'year' not in data.columns:
-            data['year'] = data[date_cols[0]].dt.year
-        if 'month' not in data.columns:
-            data['month'] = data[date_cols[0]].dt.month
-        print("\nEntries per Year:")
-        print(data['year'].value_counts().sort_index())
-        print("\nEntries per Month:")
-        print(data['month'].value_counts().sort_index())
+            if not data[col].isnull().all():
+                yearly_counts = data[col].dt.year.value_counts().sort_index()
+                print(f"\nEntries per Year for {col}:")
+                print(yearly_counts)
+                monthly_counts = data[col].dt.month.value_counts().sort_index()
+                print(f"\nEntries per Month for {col}:")
+                print(monthly_counts)
 
-    # Define a priority queue for charts
+    # Generate visualizations dynamically
     chart_queue = []
 
-    # Add charts based on priority
     if correlation is not None:
-        chart_queue.append(("correlation_heatmap.png", lambda: sns.heatmap(correlation, annot=True, fmt=".2f", cmap="coolwarm")))
+        chart_queue.append(("correlation_heatmap.png", lambda: sns.heatmap(correlation, annot=True, fmt=".2f", cmap="coolwarm"),
+                           "Correlation Heatmap", "Variables", "Correlation Coefficient", False))
 
     if not numeric_cols.empty:
-        chart_queue.append(("outlier_boxplot.png", lambda: sns.boxplot(data=numeric_cols)))
-        chart_queue.append(("numeric_histograms.png", lambda: numeric_cols.hist(bins=15, figsize=(12, 8))))
+        chart_queue.append(("outlier_boxplot.png", lambda: sns.boxplot(data=numeric_cols),
+                           "Boxplot of Numeric Columns", "Columns", "Values", False))
+        chart_queue.append((
+    "numeric_histograms.png",lambda: (numeric_cols.hist(bins=15, figsize=(12, 8)),  # Create the histograms
+        plt.suptitle("Numeric Data Distribution")    # Add the title
+    ), None, None, None, False
+))
 
-    if not categorical_cols.empty:
-        chart_queue.append(("categorical_distribution.png", lambda: sns.barplot(
-            data=data[categorical_cols].melt(), x="variable", y="value", estimator=len, ci=None
-        )))
 
     if date_cols:
-        chart_queue.append(("yearly_trend.png", lambda: data['year'].value_counts().sort_index().plot(kind='line', marker='o')))
+        for col in date_cols:
+            if not data[col].isnull().all():
+                chart_queue.append((
+                    f"{col}_yearly_trend.png",
+                    lambda: data[col].dt.year.value_counts().sort_index().plot(kind="line", marker="o"),
+                    f"Yearly Trend for {col}", "Year", "Count", False
+                ))
 
-    # Save only the top 5 charts
-    for i, (filename, plot_func) in enumerate(chart_queue[:5]):
-        save_chart(output_dir, filename, plot_func)
+    for i, (filename, plot_func, title, xlabel, ylabel, legend) in enumerate(chart_queue[:5]):
+        save_chart(output_dir, filename, plot_func, title, xlabel, ylabel, legend)
 
     return {
         "summary": data.describe(include='all'),
@@ -139,14 +152,6 @@ def generate_readme(data, filename, output_dir):
         f.write("## Dataset Overview\n")
         f.write(data.describe(include="all").to_markdown() + "\n\n")
 
-        # Categorical column distributions
-        categorical_cols = data.select_dtypes(include="object").columns
-        if not categorical_cols.empty:
-            f.write("## Categorical Columns Distribution\n")
-            for col in categorical_cols:
-                f.write(f"### Distribution of '{col}'\n")
-                f.write(data[col].value_counts(normalize=True).to_markdown() + "\n\n")
-
         # Add correlation matrix
         numeric_cols = data.select_dtypes(include="number")
         if numeric_cols.shape[1] > 1:
@@ -155,9 +160,8 @@ def generate_readme(data, filename, output_dir):
 
         # Embed generated images
         f.write("## Visualizations\n")
-        for chart in ["correlation_heatmap.png", "outlier_boxplot.png", "numeric_histograms.png", "categorical_distribution.png", "yearly_trend.png"]:
-            chart_path = os.path.join(output_dir, chart)
-            if os.path.exists(chart_path):
+        for chart in os.listdir(output_dir):
+            if chart.endswith(".png"):
                 f.write(f"![{chart}]({chart})\n\n")
 
     print(f"README.md generated at {readme_path}!")
@@ -181,10 +185,8 @@ def main():
         sys.exit(1)
     print(f"File '{csv_file}' exists.")
 
-    # List of encodings to try
+    # Attempt to read the file with multiple encodings
     encodings = ['utf-8', 'ISO-8859-1', 'latin1', 'utf-16', 'utf-16le', 'utf-16be', 'windows-1252']
-
-    # Attempt to read the file with each encoding
     data = None
     for encoding in encodings:
         try:
