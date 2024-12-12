@@ -1,6 +1,7 @@
 import os
 import sys
 import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.impute import SimpleImputer
 from sklearn.cluster import KMeans
@@ -19,6 +20,7 @@ openai.api_key = os.getenv("AIPROXY_TOKEN")
 openai.api_base = "https://aiproxy.sanand.workers.dev/openai/v1"  # Proxy URL
 
 # Define constants
+IMAGE_SIZE = (512 / 100, 512 / 100)  # Convert pixels to inches (DPI = 100)
 CACHE_FILE = "api_cache.json"  # Cache file to store previous API responses
 MAX_FILE_SIZE_MB = 10  # Maximum allowed file size in MB for processing
 ENCODINGS = ['utf-8', 'ISO-8859-1', 'latin1', 'utf-16', 'utf-16le', 'utf-16be', 'windows-1252']  # List of encodings to try
@@ -149,9 +151,9 @@ class AutolysisAnalyzer:
         if numeric_data.shape[1] > 1:
             correlation_matrix = numeric_data.corr()
             sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-            sns.despine()
-            correlation_matrix_path = os.path.join(self.output_dir, "correlation_matrix.png")
-            sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm").figure.savefig(correlation_matrix_path)
+            plt.title('Correlation Matrix')
+            plt.savefig(os.path.join(self.output_dir, "correlation_matrix.png"))
+            plt.close()
             self.results['Correlation Matrix'] = correlation_matrix.to_string()
         
         # Outlier Detection using Isolation Forest
@@ -169,13 +171,13 @@ class AutolysisAnalyzer:
             clusters = kmeans.fit_predict(numeric_data_imputed)
             self.data['Cluster'] = clusters
             self.results['Clustering'] = self.data['Cluster'].value_counts().to_string()
-            scatter_plot_path = os.path.join(self.output_dir, "clustering_results.png")
-            sns.scatterplot(data=self.data, x=numeric_data.columns[0], y=numeric_data.columns[1], hue="Cluster")
-            sns.despine()
-            sns.scatterplot(data=self.data, x=numeric_data.columns[0], y=numeric_data.columns[1], hue="Cluster").figure.savefig(scatter_plot_path)
+            sns.scatterplot(x=numeric_data.columns[0], y=numeric_data.columns[1], hue=clusters, data=self.data)
+            plt.title('Clustering Results')
+            plt.savefig(os.path.join(self.output_dir, "clustering_results.png"))
+            plt.close()
 
         # LLM Request for Dataset Insights
-        dataset_prompt = f"""Analyze the following dataset with columns: {list(self.data.columns)}. \
+        dataset_prompt = f"""Analyze the following dataset with columns: {list(self.data.columns)}. 
         Provide suggestions for key visualizations and additional insights. Use simple JSON format in the response."""
         dataset_insights = query_llm(dataset_prompt, self.csv_file)
         self.results['LLM Insights'] = dataset_insights
@@ -195,7 +197,7 @@ class AutolysisAnalyzer:
             print("Regression Analysis:\n", self.results['Regression Coefficients'])
 
             # LLM Request for Regression Insights
-            regression_prompt = f"""Given the following regression coefficients: {self.results['Regression Coefficients']},\
+            regression_prompt = f"""Given the following regression coefficients: {self.results['Regression Coefficients']},
             suggest insights and actionable recommendations."""
             regression_suggestions = query_llm(regression_prompt, self.csv_file)
             self.results['Regression Insights'] = regression_suggestions
