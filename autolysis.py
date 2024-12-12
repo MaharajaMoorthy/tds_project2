@@ -1,3 +1,25 @@
+import subprocess
+import sys
+
+def install_and_import(package):
+    """
+    Install a package if it's not already installed, then import it.
+    """
+    try:
+        __import__(package)
+    except ImportError:
+        print(f"Installing {package}...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"{package} installed successfully.")
+
+# Ensure required packages are installed
+required_packages = ["pandas", "seaborn", "matplotlib", "requests", "scikit-learn"]
+for package in required_packages:
+    install_and_import(package)
+
+
+
+
 import os
 import pandas as pd
 import seaborn as sns
