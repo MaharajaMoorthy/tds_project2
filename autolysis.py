@@ -1,30 +1,13 @@
-import subprocess
-import sys
-
-def install_and_import(package):
-    """
-    Install a package if it's not already installed, then import it.
-    Installs `pip` if it is missing.
-    """
-    try:
-        __import__(package)
-    except ImportError:
-        print(f"Installing {package}...")
-        try:
-            # Ensure pip is available
-            subprocess.check_call([sys.executable, "-m", "ensurepip", "--default-pip"])
-            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-            print(f"{package} installed successfully.")
-        except Exception as e:
-            print(f"Failed to install {package}: {e}")
-            sys.exit(1)
-
-
-# Ensure required packages are installed
-required_packages = ["pandas", "seaborn", "matplotlib", "requests", "scikit-learn"]
-for package in required_packages:
-    install_and_import(package)
-
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "pandas",
+#   "seaborn",
+#   "matplotlib",
+#   "requests",
+#   "scikit-learn",
+# ]
+# ///
 
 
 
