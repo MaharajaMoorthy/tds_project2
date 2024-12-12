@@ -1,14 +1,15 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "pandas",
-#   "seaborn",
-#   "matplotlib",
-#   "requests",
-#   "scikit-learn",
+#   "pandas",          # For data manipulation and analysis
+#   "seaborn",         # For creating visualizations (e.g., heatmaps, boxplots)
+#   "matplotlib",      # For generating charts and saving visualizations
+#   "requests",        # For API calls to interact with the LLM
+#   "scikit-learn",    # For outlier detection (e.g., IsolationForest) and clustering
+#   "tabulate",        # For creating Markdown tables in reports
+#   "numpy",           # For numerical computations and efficient data handling
 # ]
 # ///
-
 
 
 import os
