@@ -91,7 +91,7 @@ def load_data(filename):
     logging.critical(f"Error loading {filename}: Unable to decode file with the tried encodings.")
     raise RuntimeError(f"Error loading {filename}: Unable to decode file with the tried encodings.")
 
-def make_openai_request(data, filename, debug=False, retries=3, timeout=40):
+def make_openai_request(data, filename, debug=False, retries=3, timeout=15):
     """
     Make a request to the OpenAI API with caching, dynamic prompt generation, and error handling.
 
