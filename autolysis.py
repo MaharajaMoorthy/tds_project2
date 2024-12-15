@@ -133,18 +133,21 @@ def load_data(filename):
 
 def organize_files_into_folder(folder_name):
     """
-    Move all .png and .md files in the current directory into a specified folder inside the eval directory.
+    Move all .png and .md files in the current directory into the folder specified inside the 'eval' directory.
+    Ensure that the folder name matches the expected structure (including .csv).
     """
-    current_dir = os.getcwd()  # Get the current directory
-    # Ensure we're using the correct path for your eval subfolder.
-    target_dir = os.path.join(current_dir, "eval", folder_name)  # Target folder inside eval subfolder
+    # Get the directory where the current script (autolysis.py) is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))  # Absolute path of the script directory
+    
+    # Include the .csv extension in the folder name to match the evaluation folder
+    target_dir = os.path.join(script_dir, "eval", folder_name + ".csv")  # Expect folder to match the dataset filename
 
     os.makedirs(target_dir, exist_ok=True)  # Ensure target folder exists
 
-    files_to_move = [file for file in os.listdir(current_dir) if file.endswith(('.png', '.md'))]
+    files_to_move = [file for file in os.listdir(script_dir) if file.endswith(('.png', '.md'))]
 
     for file in files_to_move:
-        src_path = os.path.join(current_dir, file)
+        src_path = os.path.join(script_dir, file)
         dest_path = os.path.join(target_dir, file)
         shutil.move(src_path, dest_path)
         print(f"Moved: {file} -> {folder_name}")
