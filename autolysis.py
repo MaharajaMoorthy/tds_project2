@@ -133,12 +133,13 @@ def load_data(filename):
 
 def organize_files_into_folder(folder_name):
     """
-    Move all .png and .md files in the current directory into a specified folder.
+    Move all .png and .md files in the current directory into a specified folder inside the eval directory.
     """
-    current_dir = os.getcwd()
-    target_dir = os.path.join(current_dir, folder_name)
+    current_dir = os.getcwd()  # Get the current directory
+    # Ensure we're using the correct path for your eval subfolder.
+    target_dir = os.path.join(current_dir, "eval", folder_name)  # Target folder inside eval subfolder
 
-    os.makedirs(target_dir, exist_ok=True)
+    os.makedirs(target_dir, exist_ok=True)  # Ensure target folder exists
 
     files_to_move = [file for file in os.listdir(current_dir) if file.endswith(('.png', '.md'))]
 
