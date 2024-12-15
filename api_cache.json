@@ -1182,5 +1182,892 @@
     "monthlyCost": 1.163793,
     "cost": 0.00043200000000000004,
     "monthlyRequests": 56
+  },
+  "e1e83ba860cacd61b59bd7da05cbed26": {
+    "id": "chatcmpl-Aep0WLG9z5QYBjEasa29sG3urOqID",
+    "object": "chat.completion",
+    "created": 1734292556,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The provided data appears to be a Base64-encoded image, which likely represents a chart or graph. Unfortunately, I am unable to directly decode and visualize images. However, I can guide you on how to interpret a chart if you can describe its contents or provide specific details about the axes, labels, data points, and any annotations present.\n\nPlease provide a description of the chart, and I will assist you in analyzing it!",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 28735,
+      "completion_tokens": 86,
+      "total_tokens": 28821,
+      "prompt_tokens_details": {
+        "cached_tokens": 28544,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 1.4506200000000007,
+    "cost": 0.086721,
+    "monthlyRequests": 97
+  },
+  "7613414bad372a187dd413bd1cd02afd": {
+    "id": "chatcmpl-Aep0mdd7Yhy4gkjNWBhUvKdnAYcMf",
+    "object": "chat.completion",
+    "created": 1734292572,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The provided Base64 encoded string appears to represent an image file, likely a chart or graph. However, I cannot directly decode or visualize the image itself. \n\nTo analyze the chart, you would typically follow these steps:\n\n1. **Decode the Base64 String**: Use a Base64 decoder to convert the string back into an image format (like PNG or JPEG).\n\n2. **Open the Image**: After decoding, open the image using an image viewer or a data analysis tool that can read images.\n\n3. **Analyze the Chart**:\n   - **Identify the Type of Chart**: Determine whether it is a bar chart, line graph, pie chart, etc.\n   - **Examine the Axes**: Look at the x-axis and y-axis labels to understand what data is being represented.\n   - **Look for Trends**: Identify any trends, patterns, or anomalies in the data presented in the chart.\n   - **Consider the Data Points**: Note any specific data points that stand out (e.g., peaks, troughs, significant changes).\n   - **Contextualize the Information**: If available, consider the context of the data\u2014what it represents, the source of the data, and any relevant background information.\n\nIf you can provide a description of the chart or any specific data presented in it, I would be happy to help analyze that information further!",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 90283,
+      "completion_tokens": 280,
+      "total_tokens": 90563,
+      "prompt_tokens_details": {
+        "cached_tokens": 90112,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 1.7231490000000007,
+    "cost": 0.272529,
+    "monthlyRequests": 98
+  },
+  "3a8c92beb2c7385752dff66da2acd847": {
+    "id": "chatcmpl-Aep5TcTY98S1CJaJyyA505wOwUa2M",
+    "object": "chat.completion",
+    "created": 1734292863,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "I'm unable to directly analyze or interpret images or charts encoded in Base64 format. However, you can decode the Base64 string to an image format and then describe the chart or provide the key details, such as the axes, labels, and any important data points. With that information, I can help you analyze the data or provide insights based on the chart's content. \n\nIf you need help decoding the Base64 string, you can use various online tools or programming languages like Python to convert it back to an image format. Let me know how you would like to proceed!",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 95923,
+      "completion_tokens": 115,
+      "total_tokens": 96038,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.0116080000000007,
+    "cost": 0.288459,
+    "monthlyRequests": 101
+  },
+  "8a754fbdef1a8c65947c12fe83540c59": {
+    "id": "chatcmpl-AeqLCist6d516kgB6lS2VZBBp0GKr",
+    "object": "chat.completion",
+    "created": 1734297682,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data for the chart so that I can assist you with the analysis.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 107,
+      "completion_tokens": 19,
+      "total_tokens": 126,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.0120430000000007,
+    "cost": 0.000435,
+    "monthlyRequests": 106
+  },
+  "01c3ad4a47b24533d409bab4bad6d4c8": {
+    "id": "chatcmpl-AeqLE7HcjB3zYBpUM7Z98x25DMNcK",
+    "object": "chat.completion",
+    "created": 1734297684,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data for the heatmap so I can analyze it.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 108,
+      "completion_tokens": 16,
+      "total_tokens": 124,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.012463000000001,
+    "cost": 0.00042,
+    "monthlyRequests": 107
+  },
+  "225352065a4ad6050a994a277a5ac0f3": {
+    "id": "chatcmpl-AeqLGfPjJQDwuj2fPEUbM35SjRIcD",
+    "object": "chat.completion",
+    "created": 1734297686,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data for the chart you would like me to analyze.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 107,
+      "completion_tokens": 16,
+      "total_tokens": 123,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_39a40c96a0",
+    "monthlyCost": 2.012880000000001,
+    "cost": 0.000417,
+    "monthlyRequests": 108
+  },
+  "7f2a9b407876e21f9f088062f0fdba2e": {
+    "id": "chatcmpl-Aer4FVuKakZumstdMm84lBaLiOPUu",
+    "object": "chat.completion",
+    "created": 1734300475,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data for the chart so I can assist you with the analysis.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 107,
+      "completion_tokens": 18,
+      "total_tokens": 125,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.013309000000001,
+    "cost": 0.000429,
+    "monthlyRequests": 109
+  },
+  "0344adc17727b10b882f0bc3e5d0749d": {
+    "id": "chatcmpl-Aer4HQSHzsJIw0ea9PG3DfHyCn6D4",
+    "object": "chat.completion",
+    "created": 1734300477,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data for the heatmap so that I can analyze it.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 108,
+      "completion_tokens": 17,
+      "total_tokens": 125,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.013735000000001,
+    "cost": 0.000426,
+    "monthlyRequests": 110
+  },
+  "0c621fcd3acb027d139da02be6f92902": {
+    "id": "chatcmpl-Aer4JhaH4OB2cIlp5u9JOvmJl8ERx",
+    "object": "chat.completion",
+    "created": 1734300479,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Please provide the image data of the chart so I can analyze it for you.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 107,
+      "completion_tokens": 17,
+      "total_tokens": 124,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.014158000000001,
+    "cost": 0.000423,
+    "monthlyRequests": 111
+  },
+  "414ccae95255936f3b00364381975792": {
+    "id": "chatcmpl-AerYdiMfSAEMhDGEV24LSKnU4X6ze",
+    "object": "chat.completion",
+    "created": 1734302359,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"This chart presents the top correlations found in the data, highlighting both the highest positive and negative correlations among various indicators. The positive correlations suggest a strong relationship between economic factors and health outcomes, while the negative correlations indicate a potential inverse relationship between personal freedoms and perceptions of corruption over time.\",\"extracted_insights\":\"The analysis reveals that the strongest positive correlation is between Log GDP per capita and Healthy life expectancy at birth (0.81), indicating that as GDP per capita increases, so does life expectancy. Similarly, the Life Ladder, which measures subjective well-being, also shows a strong positive correlation with Log GDP per capita (0.77). On the other hand, the highest negative correlation is between Freedom to make life choices and Perceptions of corruption (-0.46), suggesting that greater personal freedom is associated with lower perceptions of corruption. Additionally, the correlations involving year and Cluster (-0.76) imply a significant temporal relationship within the data.\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 173,
+      "completion_tokens": 202,
+      "total_tokens": 375,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.015889000000001,
+    "cost": 0.001731,
+    "monthlyRequests": 117
+  },
+  "c57621c689d57964231ad5a28f69c051": {
+    "id": "chatcmpl-AerYhskgvUsw5metWFllp2Pc8oBf1",
+    "object": "chat.completion",
+    "created": 1734302363,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Statistical analysis of various indicators related to well-being and socio-economic factors across different countries, including metrics such as Life Ladder, Log GDP per capita, and social support.\",\"extracted_insights\":\"The data presents a comprehensive overview of several indicators related to well-being and socio-economic factors. Key insights include: 1. The year has a mean of approximately 2014.76, indicating a focus on data from recent years. 2. Life Ladder scores show a mean of 5.48, reflecting general life satisfaction. 3. Log GDP per capita averages around 9.40, suggesting varying economic conditions across countries. 4. Social support, Healthy life expectancy, Freedom to make life choices, Generosity, and Perceptions of corruption are skewed, indicating potential disparities in these areas. 5. Positive affect is normally distributed, while Negative affect shows a positive skew, suggesting more respondents report lower negative feelings.\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 967,
+      "completion_tokens": 201,
+      "total_tokens": 1168,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.019996000000001,
+    "cost": 0.0041069999999999995,
+    "monthlyRequests": 118
+  },
+  "5fb28fd7e57688175c2180509a1872c6": {
+    "id": "chatcmpl-AerkqpH72KUYhGLmCiXLHQkrayKe7",
+    "object": "chat.completion",
+    "created": 1734303116,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Heatmap: Correlation matrix of numeric columns, showing relationships between variables.\",\"extracted_insights\":\"Top Correlations:\\nHighest Positive Correlations:\\n- Log GDP per capita and Healthy life expectancy at birth: 0.81\\n- Healthy life expectancy at birth and Log GDP per capita: 0.81\\n- Life Ladder and Log GDP per capita: 0.77\\nHighest Negative Correlations:\\n- Freedom to make life choices and Perceptions of corruption: -0.46\\n- year and Cluster: -0.76\\n- Cluster and year: -0.76\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 209,
+      "completion_tokens": 135,
+      "total_tokens": 344,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.021433000000001,
+    "cost": 0.0014370000000000001,
+    "monthlyRequests": 119
+  },
+  "d6c15c45b59a47f4f86199f2ebd1266a": {
+    "id": "chatcmpl-AersS8TWYHNM2fQFUuk2BSwdZnwl5",
+    "object": "chat.completion",
+    "created": 1734303588,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Boxplots: Summary of numeric column distributions, highlighting potential outliers.\",\"extracted_insights\":\"{'year': {'min': 2005.0, 'max': 2023.0, 'median': 2015.0, 'Q1': 2011.0, 'Q3': 2019.0, 'outlier_count': 0}, 'Life Ladder': {'min': 1.281, 'max': 8.019, 'median': 5.449, 'Q1': 4.647, 'Q3': 6.3235, 'outlier_count': 2}, 'Log GDP per capita': {'min': 5.527, 'max': 11.676, 'median': 9.492, 'Q1': 8.52, 'Q3': 10.382, 'outlier_count': 1}, 'Social support': {'min': 0.228, 'max': 0.987, 'median': 0.834, 'Q1': 0.744, 'Q3': 0.904, 'outlier_count': 48}, 'Healthy life expectancy at birth': {'min': 6.72, 'max': 74.6, 'median': 64.9, 'Q1': 59.545, 'Q3': 68.4, 'outlier_count': 27}, 'Freedom to make life choices': {'min': 0.228, 'max': 0.985, 'median': 0.769, 'Q1': 0.662, 'Q3': 0.861, 'outlier_count': 16}, 'Generosity': {'min': -0.34, 'max': 0.7, 'median': -0.015, 'Q1': -0.108, 'Q3': 0.088, 'outlier_count': 44}, 'Perceptions of corruption': {'min': 0.035, 'max': 0.983, 'median': 0.79, 'Q1': 0.696, 'Q3': 0.864, 'outlier_count': 225}, 'Positive affect': {'min': 0.179, 'max': 0.884, 'median': 0.662, 'Q1': 0.573, 'Q3': 0.7364999999999999, 'outlier_count': 9}, 'Negative affect': {'min': 0.083, 'max': 0.705, 'median': 0.263, 'Q1': 0.209, 'Q3': 0.326, 'outlier_count': 31}, 'Cluster': {'min': 0, 'max': 2, 'median': 1.0, 'Q1': 0.0, 'Q3': 2.0, 'outlier_count': 0}}\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 885,
+      "completion_tokens": 642,
+      "total_tokens": 1527,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.027940000000001,
+    "cost": 0.006507000000000001,
+    "monthlyRequests": 120
+  },
+  "dfafbf9c2d633de6e194d6691261ece5": {
+    "id": "chatcmpl-AershkK2TBHf67yHMpRPihQd2s30n",
+    "object": "chat.completion",
+    "created": 1734303603,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Heatmap: Correlation matrix of numeric columns, showing relationships between variables.\",\"extracted_insights\":\"Top Correlations:\\nHighest Positive Correlations:\\n- Log GDP per capita and Healthy life expectancy at birth: 0.81\\n- Healthy life expectancy at birth and Log GDP per capita: 0.81\\n- Life Ladder and Log GDP per capita: 0.77\\nHighest Negative Correlations:\\n- Freedom to make life choices and Perceptions of corruption: -0.46\\n- year and Cluster: -0.76\\n- Cluster and year: -0.76\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 211,
+      "completion_tokens": 135,
+      "total_tokens": 346,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.029383000000001,
+    "cost": 0.001443,
+    "monthlyRequests": 121
+  },
+  "6eed7c17841d4d87c00c837bab49ac46": {
+    "id": "chatcmpl-AerslynqvQZ5uiSEaeggzXeZWhghN",
+    "object": "chat.completion",
+    "created": 1734303607,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Histograms: Frequency distribution of numeric columns, including potential data patterns.\",\"extracted_insights\":\"{'year': {'mean': np.float64(2014.7638595006347), 'std_dev': np.float64(5.059436468192795), 'skewness': np.float64(-0.06436905383733935), 'kurtosis': np.float64(-1.0891014924960274), 'distribution_type': 'Normal'}, 'Life Ladder': {'mean': np.float64(5.483565806178587), 'std_dev': np.float64(1.1255215132391925), 'skewness': np.float64(-0.05381147923199281), 'kurtosis': np.float64(-0.562270346407407), 'distribution_type': 'Normal'}, 'Log GDP per capita': {'mean': np.float64(9.399671092077089), 'std_dev': np.float64(1.1452205633024592), 'skewness': np.float64(-0.3386949831896771), 'kurtosis': np.float64(-0.7457075125889352), 'distribution_type': 'Normal'}, 'Social support': {'mean': np.float64(0.8093693617021276), 'std_dev': np.float64(0.12087774068835622), 'skewness': np.float64(-1.1123584602164989), 'kurtosis': np.float64(1.1546269178326938), 'distribution_type': 'Skewed'}, 'Healthy life expectancy at birth': {'mean': np.float64(63.40182826086957), 'std_dev': np.float64(6.75077303527051), 'skewness': np.float64(-1.1451684474877954), 'kurtosis': np.float64(3.092714044629595), 'distribution_type': 'Skewed'}, 'Freedom to make life choices': {'mean': np.float64(0.750281908036098), 'std_dev': np.float64(0.13829096427265813), 'skewness': np.float64(-0.7052673350894398), 'kurtosis': np.float64(0.09977962759975378), 'distribution_type': 'Skewed'}, 'Generosity': {'mean': np.float64(9.772129710780079e-05), 'std_dev': np.float64(0.15859623298729603), 'skewness': np.float64(0.7828985543418484), 'kurtosis': np.float64(0.9692362383760029), 'distribution_type': 'Skewed'}, 'Perceptions of corruption': {'mean': np.float64(0.7439709562109027), 'std_dev': np.float64(0.17990733468575276), 'skewness': np.float64(-1.526444888716265), 'kurtosis': np.float64(2.0788599194333957), 'distribution_type': 'Skewed'}, 'Positive affect': {'mean': np.float64(0.6518820008550663), 'std_dev': np.float64(0.10569858218603109), 'skewness': np.float64(-0.46128194116284105), 'kurtosis': np.float64(-0.12313110710567354), 'distribution_type': 'Normal'}, 'Negative affect': {'mean': np.float64(0.27315083084789094), 'std_dev': np.float64(0.08683546152117344), 'skewness': np.float64(0.7004491458116548), 'kurtosis': np.float64(0.6601185886035648), 'distribution_type': 'Skewed'}, 'Cluster': {'mean': np.float64(0.9767245027507406), 'std_dev': np.float64(0.8631411452369104), 'skewness': np.float64(0.0447448687180303), 'kurtosis': np.float64(-1.6567021567013989), 'distribution_type': 'Normal'}}\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1004,
+      "completion_tokens": 926,
+      "total_tokens": 1930,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.037951000000001,
+    "cost": 0.008568,
+    "monthlyRequests": 122
+  },
+  "d1b1bcd7c16fd79667beca41c9d311af": {
+    "id": "chatcmpl-AertAB1asQ5ERetGKWKeAD3M4QU30",
+    "object": "chat.completion",
+    "created": 1734303632,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Analysis Report for `happiness.csv`\n\n## Dataset Overview\n- **Number of Rows**: N/A\n- **Number of Columns**: N/A\n- **Columns**:\n  - Country Name\n  - Year\n  - Life Ladder\n  - Log GDP per Capita\n  - Social Support\n  - Healthy Life Expectancy at Birth\n  - Freedom to Make Life Choices\n  - Generosity\n  - Perceptions of Corruption\n  - Positive Affect\n  - Negative Affect\n\n## Key Insights from Analysis\n\n### Basic Analysis\n- **Missing Values**:\n| Column Name                       | Missing Values |\n|:----------------------------------|----------------:|\n| Country Name                     |               0 |\n| Year                             |               0 |\n| Life Ladder                      |               0 |\n| Log GDP per Capita               |              28 |\n| Social Support                   |              13 |\n| Healthy Life Expectancy at Birth |              63 |\n| Freedom to Make Life Choices     |              36 |\n| Generosity                       |              81 |\n| Perceptions of Corruption        |             125 |\n| Positive Affect                  |              24 |\n| Negative Affect                  |              16 |\n\n- **Outliers**:\n  - **Year**: 0 outliers detected (Range: 1999.0 to 2031.0)\n  - **Life Ladder**: 2 outliers detected (Range: 2.132 to 8.838)\n  - **Log GDP per Capita**: 1 outlier detected (Range: 5.677 to 13.222)\n  - **Social Support**: 48 outliers detected (Range: 0.504 to 1.144)\n  - **Healthy Life Expectancy at Birth**: 20 outliers detected (Range: 45.159 to 82.589)\n  - **Freedom to Make Life Choices**: 16 outliers detected (Range: 0.360 to 1.164)\n  - **Generosity**: 39 outliers detected (Range: -0.421 to 0.402)\n  - **Perceptions of Corruption**: 194 outliers detected (Range: 0.416 to 1.139)\n  - **Positive Affect**: 9 outliers detected (Range: 0.324 to 0.985)\n  - **Negative Affect**: 31 outliers detected (Range: 0.034 to 0.502)\n\n### Advanced Analysis\n- **Clustering**: Clustering analysis completed successfully.\n- **Principal Component Analysis (PCA)**: Explained Variance Ratios: [0.6508, 0.3297]\n- **Outliers**: A total of 11 outliers detected.\n\n## Visualizations and Insights\n![Outlier Boxplots](outlier_boxplots.png)\n- **Chart Description**: Boxplots providing a summary of numeric column distributions, highlighting potential outliers.\n\n![Correlation Heatmap](correlation_heatmap.png)\n- **Chart Description**: Heatmap illustrating the correlation matrix of numeric columns, revealing relationships between variables.\n\n![Histograms](histograms.png)\n- **Chart Description**: Histograms showing the frequency distribution of numeric columns, which may indicate underlying data patterns.\n\n## Recommendations and Next Steps\n- **Data Quality**: Address missing values and outliers to enhance the integrity of the analysis.\n- **Future Exploration**: Utilize insights from clustering and PCA for effective segmentation and dimensionality reduction.\n- **Operational Use**: Leverage identified time-series patterns for forecasting and analyze geospatial trends for targeted decision-making.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 839,
+      "completion_tokens": 748,
+      "total_tokens": 1587,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.044956000000001,
+    "cost": 0.007005,
+    "monthlyRequests": 123
+  },
+  "9a770cfa90c5c6590d0833616564f3de": {
+    "id": "chatcmpl-AervCgl5I5pM4YYApBGf5rx8VfUc9",
+    "object": "chat.completion",
+    "created": 1734303758,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Analysis Report for `happiness.csv`\n\n## Dataset Overview\n- **Number of Rows**: N/A\n- **Number of Columns**: N/A\n- **Columns**:\n  - Country Name\n  - Year\n  - Life Ladder\n  - Log GDP per Capita\n  - Social Support\n  - Healthy Life Expectancy at Birth\n  - Freedom to Make Life Choices\n  - Generosity\n  - Perceptions of Corruption\n  - Positive Affect\n  - Negative Affect\n\n## Key Insights from Analysis\n\n### Basic Analysis\n- **Missing Values**:\n\n| Column Name                       | Missing Values |\n|-----------------------------------|----------------|\n| Country Name                      | 0              |\n| Year                              | 0              |\n| Life Ladder                       | 0              |\n| Log GDP per Capita               | 28             |\n| Social Support                    | 13             |\n| Healthy Life Expectancy at Birth  | 63             |\n| Freedom to Make Life Choices      | 36             |\n| Generosity                        | 81             |\n| Perceptions of Corruption         | 125            |\n| Positive Affect                   | 24             |\n| Negative Affect                   | 16             |\n\n- **Outliers**:\n  - **Year**: 0 outliers detected (Range: 1999.0 to 2031.0)\n  - **Life Ladder**: 2 outliers detected (Range: 2.132 to 8.838)\n  - **Log GDP per Capita**: 1 outlier detected (Range: 5.677 to 13.222)\n  - **Social Support**: 48 outliers detected (Range: 0.504 to 1.144)\n  - **Healthy Life Expectancy at Birth**: 20 outliers detected (Range: 45.159 to 82.589)\n  - **Freedom to Make Life Choices**: 16 outliers detected (Range: 0.360 to 1.164)\n  - **Generosity**: 39 outliers detected (Range: -0.421 to 0.402)\n  - **Perceptions of Corruption**: 194 outliers detected (Range: 0.416 to 1.139)\n  - **Positive Affect**: 9 outliers detected (Range: 0.324 to 0.985)\n  - **Negative Affect**: 31 outliers detected (Range: 0.033 to 0.502)\n\n### Advanced Analysis\n- **Clustering**: Completed successfully.\n- **PCA**: Explained Variance Ratios: [0.651, 0.330]\n- **Outliers**: A total of 11 outliers detected.\n\n## Visualizations and Insights\n\n### Outlier Analysis\n![Outlier Boxplots](outlier_boxplots.png)\n- **Chart Description**: Boxplots summarizing the distributions of numeric columns, highlighting potential outliers.\n\n### Correlation Analysis\n![Correlation Heatmap](correlation_heatmap.png)\n- **Chart Description**: Heatmap displaying the correlation matrix of numeric columns, illustrating relationships between variables.\n\n### Distribution Analysis\n![Histograms](histograms.png)\n- **Chart Description**: Histograms showing the frequency distribution of numeric columns, revealing potential data patterns.\n\n## Recommendations and Next Steps\n- **Data Quality**: Address missing values and outliers to enhance the quality of the analysis.\n- **Future Exploration**: Utilize clustering and PCA insights for effective segmentation and dimensionality reduction.\n- **Operational Use**: Leverage time-series patterns for forecasting and geospatial trends for more targeted decision-making.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 29645,
+      "completion_tokens": 748,
+      "total_tokens": 30393,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.138379000000001,
+    "cost": 0.093423,
+    "monthlyRequests": 125
+  },
+  "ce7434ae8f3c6403738ec317edc4456f": {
+    "id": "chatcmpl-Aerwae8q75zKnvPg426RhtgSUpQ0Q",
+    "object": "chat.completion",
+    "created": 1734303844,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Correlation analysis of various metrics related to book ratings and reviews.\",\"extracted_insights\":\"The analysis reveals strong correlations between ratings_count and work_ratings_count, indicating that as the number of ratings increases, the number of work ratings also tends to increase. Additionally, there is a very high correlation between ratings_4 and work_ratings_count, suggesting that books with a significant number of four-star ratings also have a high number of total ratings. On the other hand, there are notable negative correlations such as between work_text_reviews_count and book_id, which may suggest that certain books with fewer text reviews are identified by specific IDs. The strong negative correlation between isbn13 and Cluster indicates that the ISBN number may not be a good predictor of the cluster to which a book belongs.\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 167,
+      "completion_tokens": 168,
+      "total_tokens": 335,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.139888000000001,
+    "cost": 0.001509,
+    "monthlyRequests": 127
+  },
+  "49449e1c9a3a93507f0e48a15ea47bf2": {
+    "id": "chatcmpl-AerweIpOrB5n1HjxcliTHRlStzlbE",
+    "object": "chat.completion",
+    "created": 1734303848,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Statistical analysis of various book-related metrics from a dataset, including IDs, publication years, ratings, and review counts.\",\"extracted_insights\":\"The dataset includes various metrics such as book IDs, Goodreads book IDs, average ratings, and ratings counts that exhibit different statistical properties. Key findings include: 1. The 'book_id' distribution is normal, while other metrics like 'goodreads_book_id', 'best_book_id', and 'work_id' are skewed, indicating a long tail of higher values. 2. 'books_count' and 'ratings_count' have high skewness, suggesting that most books have relatively few ratings, with a small number receiving a large number of ratings. 3. 'isbn13' and 'original_publication_year' show extreme negative skewness, indicating a concentration of older publications and specific ISBN patterns. 4. Ratings breakdown (1 to 5 stars) shows that higher ratings (4 and 5 stars) are more prevalent, which is common in book rating distributions. 5. The 'Cluster' metric shows extreme skewness, indicating that most observations are clustered near zero with some outliers.\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1389,
+      "completion_tokens": 246,
+      "total_tokens": 1635,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.145531000000001,
+    "cost": 0.005643,
+    "monthlyRequests": 128
+  },
+  "afc09417d96a8f20b5147ebc3b146897": {
+    "id": "chatcmpl-AerwjEe5YoI64U41fx2m6SDP4fbgy",
+    "object": "chat.completion",
+    "created": 1734303853,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Analysis Report for `goodreads.csv`\n\n## Dataset Overview\n- **Number of Rows**: N/A\n- **Number of Columns**: N/A\n- **Columns**:\n  - `book_id`\n  - `goodreads_book_id`\n  - `best_book_id`\n  - `work_id`\n  - `books_count`\n  - `isbn`\n  - `isbn13`\n  - `authors`\n  - `original_publication_year`\n  - `original_title`\n  - `title`\n  - `language_code`\n  - `average_rating`\n  - `ratings_count`\n  - `work_ratings_count`\n  - `work_text_reviews_count`\n  - `ratings_1`\n  - `ratings_2`\n  - `ratings_3`\n  - `ratings_4`\n  - `ratings_5`\n  - `image_url`\n  - `small_image_url`\n\n## Key Insights from Analysis\n\n### Basic Analysis\n- **Missing Values**:\n\n| Column                        | Missing Values |\n|-------------------------------|----------------|\n| `book_id`                     | 0              |\n| `goodreads_book_id`           | 0              |\n| `best_book_id`                | 0              |\n| `work_id`                     | 0              |\n| `books_count`                 | 0              |\n| `isbn`                        | 700            |\n| `isbn13`                      | 585            |\n| `authors`                     | 0              |\n| `original_publication_year`   | 21             |\n| `original_title`              | 585            |\n| `title`                       | 0              |\n| `language_code`               | 1084           |\n| `average_rating`              | 0              |\n| `ratings_count`               | 0              |\n| `work_ratings_count`          | 0              |\n| `work_text_reviews_count`     | 0              |\n| `ratings_1`                   | 0              |\n| `ratings_2`                   | 0              |\n| `ratings_3`                   | 0              |\n| `ratings_4`                   | 0              |\n| `ratings_5`                   | 0              |\n| `image_url`                   | 0              |\n| `small_image_url`             | 0              |\n\n- **Outliers**:\n  - `book_id`: 0 outliers (Range: -4998.5 to 14999.5)\n  - `goodreads_book_id`: 345 outliers (Range: -13957648.5 to 23386149.5)\n  - `best_book_id`: 357 outliers (Range: -14334389.375 to 24018413.625)\n  - `work_id`: 601 outliers (Range: -19254519.875 to 34781109.125)\n  - `books_count`: 844 outliers (Range: -43.0 to 133.0)\n  - `isbn13`: 556 outliers (Range: 9779544316725.0 to 9781602653445.0)\n  - `original_publication_year`: 1031 outliers (Range: 1958.5 to 2042.5)\n  - `average_rating`: 158 outliers (Range: 3.355 to 4.675)\n  - `ratings_count`: 1163 outliers (Range: -27658.375 to 82280.625)\n  - `work_ratings_count`: 1143 outliers (Range: -30275.625 to 91629.375)\n  - `work_text_reviews_count`: 1005 outliers (Range: -2381.375 to 5819.625)\n  - `ratings_1`: 1140 outliers (Range: -837.5 to 1918.5)\n  - `ratings_2`: 1156 outliers (Range: -1889.875 to 4899.125)\n  - `ratings_3`: 1149 outliers (Range: -6150.5 to 18549.5)\n  - `ratings_4`: 1131 outliers (Range: -10520.875 to 31950.125)\n  - `ratings_5`: 1158 outliers (Range: -12621.75 to 35260.25)\n\n### Advanced Analysis\n- **Clustering**: Clustering analysis completed.\n- **PCA**: Explained Variance Ratios: [0.999999999, 1.32389218e-09]\n- **Outliers Detected**: 17 outliers in the advanced analysis.\n\n## Visualizations and Insights\n\n### Boxplots\n![outlier_boxplots.png](outlier_boxplots.png)\n- **Description**: Boxplots summarizing the distributions of numeric columns, highlighting potential outliers.\n\n### Correlation Heatmap\n![correlation_heatmap.png](correlation_heatmap.png)\n- **Description**: Heatmap displaying the correlation matrix of numeric columns, illustrating relationships between variables.\n\n### Histograms\n![histograms.png](histograms.png)\n- **Description**: Histograms showing the frequency distribution of numeric columns, revealing potential data patterns.\n\n## Recommendations and Next Steps\n- **Data Quality**: Address missing values and outliers to enhance data integrity for future analyses.\n- **Future Exploration**: Utilize insights from clustering and PCA for segmentation and dimensionality reduction.\n- **Operational Use**: Leverage time-series patterns for forecasting and geospatial trends for targeted decision-making.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 35373,
+      "completion_tokens": 1162,
+      "total_tokens": 36535,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_39a40c96a0",
+    "monthlyCost": 2.258622000000001,
+    "cost": 0.11309100000000001,
+    "monthlyRequests": 129
+  },
+  "e66cbf69e1c493b661c4e9e311c892c4": {
+    "id": "chatcmpl-Aes5ky6iRNgwFgyWa1CDlERSscubn",
+    "object": "chat.completion",
+    "created": 1734304412,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Analysis Report for `media.csv`\n\n## Dataset Overview\n- **Number of Rows**: N/A\n- **Number of Columns**: N/A\n- **Columns**:\n  - `date`\n  - `language`\n  - `type`\n  - `title`\n  - `by`\n  - `overall`\n  - `quality`\n  - `repeatability`\n\n## Key Insights from Analysis\n\n### Basic Analysis\n- **Missing Values**:\n| Column        | Missing Values |\n|---------------|----------------|\n| date          | 99             |\n| language      | 0              |\n| type          | 0              |\n| title         | 0              |\n| by            | 262            |\n| overall       | 0              |\n| quality       | 0              |\n| repeatability | 0              |\n\n- **Outliers**:\n  - **Overall**: 1216 outliers detected (Range: 3.0 to 3.0)\n  - **Quality**: 24 outliers detected (Range: 1.5 to 5.5)\n  - **Repeatability**: 0 outliers detected (Range: -0.5 to 3.5)\n\n### Advanced Analysis\n- **Clustering**: Clustering analysis has been completed.\n- **PCA**: Explained Variance Ratios: [0.6333593, 0.27964962]\n- **Outliers**: A total of 4 outliers detected.\n\n## Visualizations and Insights\n![Outlier Boxplots](outlier_boxplots.png)\n- **Chart Description**: Boxplots summarizing the distributions of numeric columns, highlighting potential outliers.\n\n![Correlation Heatmap](correlation_heatmap.png)\n- **Chart Description**: Heatmap illustrating the correlation matrix of numeric columns, showcasing relationships between variables.\n\n![Histograms](histograms.png)\n- **Chart Description**: Histograms representing the frequency distribution of numeric columns, indicating potential data patterns.\n\n## Recommendations and Next Steps\n- **Data Quality**: Address missing values and outliers to enhance the quality of the analysis.\n- **Future Exploration**: Utilize insights from clustering and PCA for further segmentation and dimensionality reduction.\n- **Operational Use**: Leverage time-series patterns for forecasting and geospatial trends to inform targeted decision-making.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 102986,
+      "completion_tokens": 477,
+      "total_tokens": 103463,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.570442000000001,
+    "cost": 0.31182,
+    "monthlyRequests": 133
+  },
+  "9cf4173771b46647bbcffe20e23a2064": {
+    "id": "chatcmpl-AesHQDq4wawEUIK5UFEqxnfh6gSJW",
+    "object": "chat.completion",
+    "created": 1734305136,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "# Analysis Report for `media.csv`\n\n## Dataset Overview\n- **Number of Rows**: 2,652\n- **Number of Columns**: 8\n- **Columns**:\n  - `date`\n  - `language`\n  - `type`\n  - `title`\n  - `by`\n  - `overall`\n  - `quality`\n  - `repeatability`\n\n## Sample Data\n|    | date      | language   | type   | title                 | by                            | overall | quality | repeatability |\n|---:|:----------|:-----------|:-------|:----------------------|:------------------------------|--------:|--------:|--------------:|\n|  0 | 15-Nov-24 | Tamil      | movie  | Meiyazhagan           | Arvind Swamy, Karthi        |       4 |       5 |             1 |\n|  1 | 10-Nov-24 | Tamil      | movie  | Vettaiyan             | Rajnikanth, Fahad Fazil     |       2 |       2 |             1 |\n|  2 | 09-Nov-24 | Tamil      | movie  | Amaran                | Siva Karthikeyan, Sai Pallavi |       4 |       4 |             1 |\n|  3 | 11-Oct-24 | Telugu     | movie  | Kushi                 | Vijay Devarakonda, Samantha  |       3 |       3 |             1 |\n|  4 | 05-Oct-24 | Tamil      | movie  | GOAT                  | Vijay                        |       3 |       3 |             1 |\n|  5 | 02-Oct-24 | Telugu     | movie  | Sanivaaram Saripodhaa | Nani, SJ Surya               |       3 |       3 |             1 |\n|  6 | 01-Oct-24 | Tamil      | movie  | Saba Nayagan          | Ashok Selvan                 |       3 |       3 |             2 |\n|  7 | 30-Sep-24 | English    | movie  | Dune: Part Two        | Timoth\u00e9e Chalamet, Zendaya   |       3 |       4 |             1 |\n|  8 | 10-Sep-24 | English    | movie  | Spencer Confidential  | Mark Wahlberg                |       3 |       3 |             1 |\n|  9 | 07-Sep-24 | English    | movie  | Gemini Man            | Will Smith                   |       3 |       3 |             1 |\n\n## Key Insights from Analysis\n### Basic Analysis\n- **Missing Values**:\n|               |   Count |\n|:--------------|-------:|\n| date          |     99 |\n| language      |      0 |\n| type          |      0 |\n| title         |      0 |\n| by            |    262 |\n| overall       |      0 |\n| quality       |      0 |\n| repeatability |      0 |\n\n- **Outliers**:\n  - **Overall**: 1,216 outliers detected (Range: 3.0 to 3.0)\n  - **Quality**: 24 outliers detected (Range: 1.5 to 5.5)\n  - **Repeatability**: No outliers detected (Range: -0.5 to 3.5)\n\n### Advanced Analysis\n- **Clustering**: Clustering analysis has been completed.\n- **PCA**: Explained Variance Ratios: [0.6333593, 0.27964962]\n- **Outliers**: A total of 4 outliers were detected.\n\n## Visualizations and Insights\n![Outlier Boxplots](outlier_boxplots.png)\n- **Chart Description**: Boxplots summarizing the distribution of numeric columns, highlighting potential outliers.\n\n![Correlation Heatmap](correlation_heatmap.png)\n- **Chart Description**: Heatmap illustrating the correlation matrix of numeric columns, showcasing relationships between variables.\n\n![Histograms](histograms.png)\n- **Chart Description**: Histograms displaying the frequency distribution of numeric columns, revealing potential data patterns.\n\n## Recommendations and Next Steps\n- **Data Quality**: Address missing values and outliers to enhance the quality of the analysis.\n- **Future Exploration**: Utilize clustering and PCA insights for segmentation and dimensionality reduction.\n- **Operational Use**: Leverage time-series patterns for forecasting and geospatial trends for targeted decision-making.",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 103473,
+      "completion_tokens": 961,
+      "total_tokens": 104434,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.8866270000000007,
+    "cost": 0.316185,
+    "monthlyRequests": 137
+  },
+  "11f3740f7035336ccbd13d5bc0050da6": {
+    "id": "chatcmpl-AesL79tp0bwdK5acvtUMmiN4z2CYf",
+    "object": "chat.completion",
+    "created": 1734305365,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "function_call": {
+            "name": "analyze_chart",
+            "arguments": "{\"metadata\":\"Statistical summary of various book-related metrics including book IDs, ratings, and publication years.\",\"extracted_insights\":\"The dataset contains various metrics related to books, including IDs, ratings, and publication years. Key observations include:\\n- The range of book IDs spans from 1 to 10,000, with a median of 5,000. \\n- Goodreads book IDs have a broader range (1 to 33,288,638) and show a significant number of outliers (345).\\n- The average rating of books ranges from 2.47 to 4.82, with a median of 4.02, indicating generally favorable reviews.\\n- Ratings count varies widely, with a minimum of 2,716 and a maximum of 4,780,653, suggesting some books are much more popular than others.\\n- The original publication year ranges from 1750 to 2017, with a median year of 2004, indicating a mix of contemporary and historical works.\\n- There are notable outliers in multiple rating categories, suggesting a few books receive an exceptionally high or low number of ratings.\"}"
+          },
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "function_call"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1347,
+      "completion_tokens": 245,
+      "total_tokens": 1592,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_6fc10e10eb",
+    "monthlyCost": 2.8921380000000005,
+    "cost": 0.005511,
+    "monthlyRequests": 138
   }
 }
