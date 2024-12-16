@@ -13,7 +13,6 @@
 # ]
 # ///
 
-
 import os
 from io import BytesIO
 import pandas as pd
@@ -33,16 +32,21 @@ import base64
 import logging
 from PIL import Image
 
-
 # Setup basic configuration for logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Global initialization
 CACHE_FILE = "api_cache.json"
 CACHE = None
 
 def load_cache():
-    """Load or initialize the cache."""
+   
+    """
+    Load the existing cache from a JSON file. Initializes a new cache if none exists or if the file is corrupted.
+
+    Returns:
+    dict: A dictionary containing cached data.
+    """
     if os.path.exists(CACHE_FILE):
         try:
             with open(CACHE_FILE, "r") as f:
@@ -66,7 +70,16 @@ def save_cache():
         logging.error(f"Failed to save cache with error: {e}")
 
 def check_cache(key):
-    """Check if a response is in the global cache."""
+    """
+        Check for the existence of a cached response using a specific key.
+
+        Parameters:
+        key : str
+            The key used to look up the cache entry.
+
+        Returns:
+            dict or None: Cached response if found, None otherwise.
+    """
     if key in CACHE:
         logging.info("Using cached response.")
         return CACHE[key]
@@ -75,9 +88,20 @@ def check_cache(key):
 # Initialize CACHE globally
 CACHE = load_cache()
 
-
 def load_data(filename):
-    """Load the dataset from a CSV file with dynamic encoding detection."""
+    """
+    Load a dataset from a CSV file using multiple encodings until the correct one is found.
+
+    Parameters:
+    filename : str
+        Path to the CSV file to be loaded.
+
+    Returns:
+    pandas.DataFrame: Loaded data as a DataFrame.
+
+    Raises:
+    RuntimeError: If the file cannot be decoded with any of the tried encodings.
+    """
     encodings = [
         'utf-8', 'utf-8-sig', 'latin1', 'ISO-8859-1', 'ISO-8859-2', 
         'ISO-8859-15', 'cp1252', 'cp1251', 'cp850', 'ascii'
@@ -168,15 +192,30 @@ def make_openai_request(data, filename, debug=False, retries=3, timeout=10):
 # Helper function to hash requests (ensure it's available in your script)
 def hash_request(data, filename):
     """
-    Generate a hash for the data and filename to use as a cache key.
-    """
+            Generate a hash key for caching based on the request data and filename.
+
+            Parameters:
+                 data : dict
+                      The request data.
+            filename : str
+                      The associated filename.
+
+             Returns:
+            str: A hash key.
+        """
     combined_data = {"data": data, "filename": filename}
     return hashlib.md5(json.dumps(combined_data, sort_keys=True).encode()).hexdigest()
 
 def organize_files_into_folder(folder_name):
     """
-    Move all .png and .md files in the current directory into the folder specified inside the 'eval' directory.
-    Ensure that the folder name matches the expected structure (including .csv).
+    Organize .png and .md files into a specified folder within the 'eval' directory.
+
+    Parameters:
+    folder_name : str
+        The name of the folder to organize files into.
+
+    Notes:
+    Ensures the folder matches the expected naming convention (including .csv extension).
     """
     # Get the directory where the current script (autolysis.py) is located
     script_dir = os.path.dirname(os.path.abspath(__file__))  # Absolute path of the script directory
@@ -198,7 +237,16 @@ def organize_files_into_folder(folder_name):
         print("No .png or .md files found to move.")
 
 def basic_analysis(df):
-    """Perform basic analysis on the dataset."""
+    """
+    Perform basic descriptive statistics and identify missing values and outliers in the dataset.
+
+    Parameters:
+    df : pandas.DataFrame
+        The dataset to analyze.
+
+    Returns:
+    tuple: A markdown formatted string of basic statistics and a dictionary of insights.
+    """
     if df.select_dtypes(include=[np.number]).empty:
         logging.warning("No numeric columns available for operations.")
         return "No numeric data available", {}
@@ -264,7 +312,7 @@ def detect_columns(df, time_keywords=None, geo_keywords=None):
     - df: pandas.DataFrame
         The dataset to analyze.
     - time_keywords: list of str, optional
-        Keywords for identifying time-related columns. Default is ['date', 'time'].
+        Keywords for identifying time-related columns. Default is ['date', 'time', 'timestamp', 'created_at', 'datetime'].
     - geo_keywords: list of str, optional
         Keywords for identifying geospatial columns. Default is ['lat', 'long'].
     
@@ -273,7 +321,7 @@ def detect_columns(df, time_keywords=None, geo_keywords=None):
         A dictionary containing detected column types.
     """
     # Default keywords if none are provided
-    time_keywords = time_keywords or ['date', 'time']
+    time_keywords = time_keywords or ['date', 'time', 'timestamp', 'created_at', 'datetime']
     geo_keywords = geo_keywords or ['lat', 'long']
 
     # Initialize the column info dictionary
@@ -290,14 +338,27 @@ def detect_columns(df, time_keywords=None, geo_keywords=None):
         columns_info['time_column'].extend(time_cols)
     columns_info['time_column'] = list(set(columns_info['time_column']))  # Remove duplicates
 
+    # Log detected time columns
+    if not columns_info['time_column']:
+        logging.warning("No time-related columns detected based on keywords.")
+    else:
+        logging.debug(f"Detected time columns: {columns_info['time_column']}")
+
     # Detect geospatial columns
     geo_candidates = [col for col in df.columns if any(geo in col.lower() for geo in geo_keywords)]
     if len(geo_candidates) >= 2:
         columns_info['geo_columns'] = geo_candidates[:2]  # Pick the first two candidates
+    else:
+        logging.warning("Insufficient geospatial columns detected. Need at least two.")
 
     # Detect categorical and numeric columns
     columns_info['categorical_columns'] = df.select_dtypes(include=['object']).columns.tolist()
     columns_info['numeric_columns'] = df.select_dtypes(include=['number']).columns.tolist()
+
+    # Log detected columns
+    logging.debug(f"Categorical columns: {columns_info['categorical_columns']}")
+    logging.debug(f"Numeric columns: {columns_info['numeric_columns']}")
+    logging.debug(f"Geospatial columns: {columns_info['geo_columns']}")
 
     return columns_info
 
@@ -335,22 +396,71 @@ def generate_dynamic_prompt(df):
     return prompt
 
 def perform_clustering(df, num_clusters=3):
-    """Perform KMeans clustering on the dataset."""
-    if len(df.select_dtypes(include=['number']).columns) > 1:
+    """
+    Perform KMeans clustering on the dataset to categorize data into specified number of clusters.
+
+    Parameters:
+    df : pandas.DataFrame
+        The dataset on which clustering is performed.
+    num_clusters : int, optional
+        The number of clusters to form (default is 3).
+
+    Returns:
+    pandas.DataFrame: Updated DataFrame with a new column 'Cluster' indicating the cluster each record belongs to.
+    """
+    numeric_columns = df.select_dtypes(include=['number']).columns
+    if not numeric_columns.empty:
         kmeans = KMeans(n_clusters=num_clusters, random_state=42)
-        df['Cluster'] = kmeans.fit_predict(df.select_dtypes(include=['number']))
-        return df
+        df['Cluster'] = kmeans.fit_predict(df[numeric_columns])
+        cluster_centers = kmeans.cluster_centers_
+        insights = {
+            "cluster_centers": cluster_centers.tolist(),
+            "num_clusters": num_clusters,
+            "cluster_labels": df['Cluster'].value_counts().to_dict()
+        }
+        return df, insights
+    else:
+        return df, {"error": "No numeric columns available for clustering."}
 
 def perform_pca(df):
-    """Conduct PCA analysis on the dataset."""
-    pca = PCA(n_components=2)
-    pca_result = pca.fit_transform(df.select_dtypes(include=['number']))
-    return pca.explained_variance_ratio_, pca_result
+    """
+    Conduct Principal Component Analysis (PCA) to reduce the dimensionality of the data, focusing on the two main components.
+
+    Parameters:
+    df : pandas.DataFrame
+        The dataset to perform PCA on.
+
+    Returns:
+    tuple:
+        - numpy.ndarray: Array of explained variance ratios for the components.
+        - numpy.ndarray: Transformed dataset into principal components.
+    """
+    numeric_columns = df.select_dtypes(include=['number']).columns
+    if not numeric_columns.empty:
+        pca = PCA(n_components=2)
+        principal_components = pca.fit_transform(df[numeric_columns])
+        df[['PC1', 'PC2']] = principal_components
+        explained_variance = pca.explained_variance_ratio_
+        insights = {
+            "explained_variance_ratio": explained_variance.tolist(),
+            "principal_components": principal_components[:5].tolist()
+        }
+        return df, insights
+    else:
+        return df, {"error": "No numeric columns available for PCA."}
+        print("No numeric columns available for PCA.")
+        return df
 
 def detect_outliers(df):
     """
-    Detect outliers using the IQR method.
-    Returns a list of dictionaries with outlier details for each numeric column.
+    Detect outliers in numeric columns of the DataFrame using the Interquartile Range (IQR) method.
+
+    Parameters:
+    df : pandas.DataFrame
+        The dataset to analyze for outliers.
+
+    Returns:
+    list of dicts: A list where each dictionary contains details about outliers in a specific numeric column.
     """
     outlier_info = []
     for column in df.select_dtypes(include=['number']).columns:
@@ -372,73 +482,132 @@ def detect_outliers(df):
     return outlier_info
 
 def perform_time_series_analysis(df, time_column):
-    """Perform time series analysis on the dataset."""
-    if time_column in df.columns:
-        # Convert the time_column to datetime, coercing errors to NaT (not a time)
+    """
+    Analyze time series data by converting a specified column to datetime and computing rolling means.
+    """
+    # Validate that the time_column exists in the DataFrame
+    if time_column not in df.columns:
+        return {"error": f"Time column '{time_column}' not found in the dataset."}
+
+    try:
+        # Convert the time column to datetime
         df[time_column] = pd.to_datetime(df[time_column], errors='coerce')
+        if df[time_column].isna().all():
+            return {"error": f"All values in '{time_column}' could not be converted to datetime."}
+        if df[time_column].isna().any():
+            logging.warning(f"Some values in '{time_column}' are invalid and will be ignored.")
 
-        # Optional: Handle rows where time_column is NaT (if necessary)
-        # df = df.dropna(subset=[time_column])  # Uncomment to drop rows where datetime conversion failed
-
+        # Set the time column as the index
         df.set_index(time_column, inplace=True)
 
-        # Check if there are any numeric columns to perform rolling mean
-        if df.select_dtypes(include=[np.number]).empty:
-            logging.warning("No numeric columns available for rolling mean calculation.")
-            return None
-        else:
-            # Calculate rolling mean using the first numeric column found
-            first_numeric_column = df.select_dtypes(include=[np.number]).columns[0]
-            df['rolling_mean'] = df[first_numeric_column].rolling(window=12).mean()  # Example for monthly data
-            df['rolling_mean'].plot(title="Rolling Mean of Time Series")
-            plt.show()
-            return df['rolling_mean']
+        # Check for numeric columns
+        numeric_columns = df.select_dtypes(include=['number'])
+        if numeric_columns.empty:
+            return {"error": "No numeric columns available for time series analysis."}
+
+        # Ensure there are enough rows for rolling mean (at least 12)
+        if len(df) < 12:
+            return {"error": "Insufficient data for rolling mean (requires at least 12 rows)."}
+
+        # Compute rolling means and trends for each numeric column
+        insights = {}
+        for column in numeric_columns:
+            rolling_mean = numeric_columns[column].rolling(window=12).mean()
+            if rolling_mean.dropna().empty:
+                insights[column] = {"error": "Not enough data for rolling mean."}
+            else:
+                trend_direction = "increasing" if rolling_mean.iloc[-1] > rolling_mean.iloc[0] else "decreasing"
+                insights[column] = {
+                    "trend": trend_direction,
+                    "rolling_mean": rolling_mean.tolist()
+                }
+
+        return insights
+
+    except Exception as e:
+        logging.error(f"Error during time series analysis: {e}")
+        return {"error": str(e)}
 
 def perform_geospatial_analysis(df, lat_col, lon_col):
-    """Perform geospatial analysis on the dataset."""
-    if lat_col in df.columns and lon_col in df.columns:
-        plt.figure(figsize=(10, 6))
-        plt.scatter(df[lon_col], df[lat_col], alpha=0.5)
-        plt.title('Geospatial Distribution of Data Points')
-        plt.xlabel('Longitude')
-        plt.ylabel('Latitude')
-        plt.show()
+    if lat_col not in df.columns or lon_col not in df.columns:
+        return {"error": "Latitude or longitude column not found."}
+
+    try:
+        # Ensure latitude and longitude are numeric
+        if not pd.api.types.is_numeric_dtype(df[lat_col]) or not pd.api.types.is_numeric_dtype(df[lon_col]):
+            return {"error": "Latitude or longitude column contains non-numeric data."}
+
+        if df.empty:
+            return {"error": "Dataset is empty. No geospatial data to analyze."}
+
+        insights = {
+            "latitude_range": (df[lat_col].min(), df[lat_col].max()),
+            "longitude_range": (df[lon_col].min(), df[lon_col].max()),
+            "point_count": len(df)
+        }
+        return insights
+
+    except Exception as e:
+        logging.error(f"Error in geospatial analysis: {e}")
+        return {"error": str(e)}
+
 
 def advanced_analysis(df, num_clusters=3, time_col=None, lat_col=None, lon_col=None):
-    """Coordinate advanced data analysis techniques including time series and geospatial analysis."""
+    """
+    Perform a combination of advanced data analysis techniques including clustering, PCA, and optionally time series and geospatial analysis.
+
+    Parameters:
+    df : pandas.DataFrame
+        The dataset to analyze.
+    num_clusters : int, optional
+        Number of clusters to use in KMeans clustering (default is 3).
+    time_col : str, optional
+        Column name for time series analysis (default is None).
+    lat_col : str, optional
+        Column name for latitude in geospatial analysis (default is None).
+    lon_col : str, optional
+        Column name for longitude in geospatial analysis (default is None).
+
+    Returns:
+    dict: A dictionary containing results from various analyses.
+    """
     df = impute_missing_values(df, numeric_strategy='mean', categorical_strategy='most_frequent')# Impute missing values before performing analysis
     column_info = detect_columns(df)  # Detect important columns for targeted analysis
     
     results = {}
+    
     if len(df.select_dtypes(include=['number']).columns) > 1:
-        df = perform_clustering(df, num_clusters)
-        results['clustering'] = "Clustering completed."
-        variance_ratio, components = perform_pca(df)
-        results['pca'] = {"explained_variance_ratio": variance_ratio, "components": components.tolist()}
+        # Clustering
+        df, clustering_insights = perform_clustering(df, num_clusters)
+        results["clustering"] = clustering_insights
+
+        # PCA
+        df, pca_insights = perform_pca(df)
+        results["pca"] = pca_insights
+
         outliers = detect_outliers(df)
         results['outliers'] = f"{len(outliers)} outliers detected."
 
     if column_info['time_column']:  # Check for time columns for time series analysis
         for col in column_info['time_column']:
             if col in df.columns:
-                results[f'time_series_analysis_{col}'] = perform_time_series_analysis(df, col)
+                results["time_series"] = perform_time_series_analysis(df, time_col)
 
     if column_info['geo_columns']:  # Check for geo columns for geospatial analysis
         lat_col, lon_col = column_info['geo_columns']
-        perform_geospatial_analysis(df, lat_col, lon_col)
-        results['geospatial'] = "Geospatial analysis performed."
+        results["geospatial"] = perform_geospatial_analysis(df, lat_col, lon_col)
 
     return results
 
 def generate_boxplots(df, output_file="outlier_boxplots.png"):
     """
-    Generate boxplots for all numeric columns in the dataset and save as a single image.
-    
+    Generate boxplots for all numeric columns in the dataset and save the result as an image file.
+
     Parameters:
-    - df: pandas.DataFrame
-        The input dataset.
-    - output_file: str
-        The filename to save the boxplots.
+    df : pandas.DataFrame
+        The dataset from which to generate boxplots.
+    output_file : str, optional
+        Filename for the output image containing the boxplots (default is 'outlier_boxplots.png').
     """
     numeric_columns = df.select_dtypes(include=['number']).columns.tolist()
 
@@ -471,13 +640,14 @@ def generate_boxplots(df, output_file="outlier_boxplots.png"):
 
 def extract_boxplot_insights(df):
     """
-    Extract key insights from the data used to generate boxplots.
+    Extract insights such as min, max, median, Q1, Q3, and outlier count from boxplots of numeric columns.
 
     Parameters:
-    - df (pandas.DataFrame): The input dataset.
+    df : pandas.DataFrame
+        The dataset to extract insights from.
 
     Returns:
-    - dict: A dictionary of insights for each numeric column.
+    dict: A dictionary containing insights for each numeric column.
     """
     insights = {}
     numeric_columns = df.select_dtypes(include=['number']).columns.tolist()
@@ -709,7 +879,6 @@ def generate_visualizations(df):
         logging.error(f"Error generating visualizations: {e}")
         return []
 
-
 def validate_visualizations(files_to_check):
     """
     Validate the existence of visualization files.
@@ -930,18 +1099,61 @@ def narrate_story(summary, insights, advanced_results, visualization_data, filen
         markdown += f"  - Column `{outlier['column']}`: {outlier['outlier_count']} outliers detected (Range: {outlier['lower_bound']} to {outlier['upper_bound']})\n"
 
     markdown += "### Advanced Analysis\n"
-    if advanced_results.get('clustering'):
-        markdown += f"- **Clustering**: {advanced_results['clustering']}\n"
-    if advanced_results.get('pca'):
-        pca_info = advanced_results['pca']
-        markdown += f"- **PCA**: Explained Variance Ratios: {pca_info['explained_variance_ratio']}\n"
-    if advanced_results.get('outliers'):
-        markdown += f"- **Outliers**: {advanced_results['outliers']}\n"
 
-    if advanced_results.get('time_series'):
-        markdown += "- **Time Series Analysis**: Time-based patterns observed. See time-series plots.\n"
-    if advanced_results.get('geospatial'):
-        markdown += "- **Geospatial Analysis**: Geospatial patterns observed in the data. See geospatial plots.\n\n"
+    # Add Clustering Insights
+    if "clustering" in advanced_results:
+        clustering = advanced_results["clustering"]
+        if "error" not in clustering:
+            markdown += "#### Clustering\n"
+            markdown += f"- Number of Clusters: {clustering['num_clusters']}\n"
+            markdown += f"- Cluster Centers: {clustering['cluster_centers']}\n"
+            markdown += f"- Cluster Labels: {clustering['cluster_labels']}\n"
+        else:
+            markdown += f"#### Clustering\n- {clustering['error']}\n"
+
+    # Add PCA Insights
+    if "pca" in advanced_results:
+        pca = advanced_results["pca"]
+        if "error" not in pca:
+            markdown += "#### Principal Component Analysis (PCA)\n"
+            markdown += f"- Explained Variance Ratios: {pca['explained_variance_ratio']}\n"
+            markdown += f"- Principal Components(5): {pca['principal_components']}\n"
+        else:
+            markdown += f"#### PCA\n- {pca['error']}\n"
+
+    # Add Time Series Insights
+    # Initialize markdown for time series analysis
+    markdown += "#### Time Series Analysis\n"
+
+    # Ensure time_series is defined
+    time_series = advanced_results.get("time_series", None)
+
+    # Handle time series analysis
+    if time_series is None:
+        markdown += "- Time series analysis not performed or unavailable.\n"
+    elif isinstance(time_series, dict):
+        for column, details in time_series.items():
+            if isinstance(details, dict):
+                if "error" in details:
+                    markdown += f"- {column}: {details['error']}\n"
+                else:
+                    markdown += f"- {column}: Trend is {details['trend']}\n"
+            else:
+                markdown += f"- {column}: Unexpected data format: {details}\n"
+    else:
+        markdown += f"- Time series analysis failed: {time_series}\n"
+
+    # Add Geospatial Insights
+    if "geospatial" in advanced_results:
+        geospatial = advanced_results["geospatial"]
+        if "error" not in geospatial:
+            markdown += "#### Geospatial Analysis\n"
+            markdown += f"- Latitude Range: {geospatial['latitude_range']}\n"
+            markdown += f"- Longitude Range: {geospatial['longitude_range']}\n"
+            markdown += f"- Total Points: {geospatial['point_count']}\n"
+        else:
+            markdown += f"#### Geospatial Analysis\n- {geospatial['error']}\n"
+
 
     # Step 2: Add Visualizations and Insights
     markdown += "## Visualizations and Insights\n"
@@ -990,87 +1202,102 @@ def narrate_story(summary, insights, advanced_results, visualization_data, filen
     return markdown
 
 def save_outputs(markdown):
-    """Save the generated Markdown and plots."""
+    """
+    Save the generated Markdown narrative to a README.md file.
+
+    Parameters:
+    markdown (str): The Markdown content to be saved.
+    """
     with open("README.md", "w") as f:
         f.write(markdown)
+
+def parse_arguments():
+    """
+    Parse command-line arguments to get the filename of the dataset.
+    Returns:
+    argparse.Namespace: The parsed command-line arguments.
+    """
+    parser = argparse.ArgumentParser(description="Autolysis: Automated Dataset Analysis")
+    parser.add_argument("filename", type=str, help="Input CSV file")
+    return parser.parse_args()
+
+def perform_data_analysis(filename):
+    """
+    Load the dataset and perform basic and advanced analyses.
+    
+    Parameters:
+    filename (str): The path to the dataset file.
+    
+    Returns:
+    tuple: A tuple containing the DataFrame, basic insights, and advanced analysis results.
+    """
+    df = load_data(filename)
+    if df.empty:
+        raise ValueError("The dataset is empty. Please provide a valid dataset.")
+    
+    print(f"Dataset loaded successfully with {len(df)} rows and {len(df.columns)} columns.")
+    summary, insights = basic_analysis(df)
+    advanced_results = advanced_analysis(df)
+    
+    return df, summary, insights, advanced_results
+
+def handle_visualization_analysis(df, filename):
+    """
+    Generate visualizations and analyze them using a language model.
+    
+    Parameters:
+    df (pandas.DataFrame): The dataset to visualize and analyze.
+    filename (str): The filename for context in visualization analysis.
+    
+    Returns:
+    list: A list of feedback from analyzing visualizations with the LLM.
+    """
+    visualization_data = generate_visualizations(df)
+    llm_feedback = []
+    for i in range(len(visualization_data["validated_files"])):
+        validated_file = visualization_data["validated_files"][i]
+        resized_image = visualization_data["resized_images"][i]
+        metadata = visualization_data["metadata"][i]
+        extracted_insights = visualization_data["insights"][i]
+        feedback = analyze_visualization_with_llm(resized_image, metadata, extracted_insights, filename)
+        llm_feedback.append({
+            "validated_file": validated_file,
+            "metadata": metadata,
+            "llm_response": feedback["llm_response"],
+            "extracted_insights": extracted_insights
+        })
+    
+    return llm_feedback
+
+def generate_and_save_narrative(summary, insights, advanced_results, visualization_data, filename):
+    """
+    Generate the narrative report and save all outputs.
+    
+    Parameters:
+    summary (str): Summary statistics from basic analysis.
+    insights (dict): Detailed insights from basic analysis.
+    advanced_results (dict): Results from advanced analysis.
+    visualization_data (list): Data about validated visualizations, including LLM responses.
+    filename (str): The name of the dataset file for contextual reference.
+    """
+    markdown = narrate_story(summary, insights, advanced_results, visualization_data, filename)
+    save_outputs(markdown)
+    organize_files_into_folder(filename[:-4])
+    print(f"All outputs organized into folder: {filename[:-4]}")
 
 def main():
     """
     Main function to orchestrate dataset analysis, visualization, narrative generation,
     and output organization.
     """
-    parser = argparse.ArgumentParser(description="Autolysis: Automated Dataset Analysis")
-    parser.add_argument("filename", type=str, help="Input CSV file")
-    args = parser.parse_args()
-
     try:
-        # Step 1: Load the dataset
-        df = load_data(args.filename)
-        print(f"Dataset loaded successfully with {len(df)} rows and {len(df.columns)} columns.")
-
-        # Validate the dataset
-        if df.empty:
-            raise ValueError("The dataset is empty. Please provide a valid dataset.")
-
-        # Step 2: Perform basic analysis
-        summary, insights = basic_analysis(df)
-        print("Basic analysis completed.")
-
-        # Step 3: Perform advanced analysis
-        advanced_results = advanced_analysis(df)
-        print("Advanced analysis completed.")
-
-        # Step 4: Generate visualizations, resize, and extract insights
-        visualization_data = generate_visualizations(df)
-        print(f"Visualizations generated successfully. Insights extracted from charts.")
-
-
-        # Step 5: Analyze visualizations with LLM
-        llm_feedback = []
-
-        # Access dictionary keys directly
-        for i in range(len(visualization_data["validated_files"])):  # Assuming all lists are of the same length
-            validated_file = visualization_data["validated_files"][i]
-            resized_image = visualization_data["resized_images"][i]
-            metadata = visualization_data["metadata"][i]
-            extracted_insights = visualization_data["insights"][i]
-            
-            # Process each visualization
-            feedback = analyze_visualization_with_llm(resized_image, metadata, extracted_insights, args.filename)  # Include extracted_insights
-            llm_feedback.append({
-                "validated_file": validated_file,
-                "metadata": metadata,
-                "llm_response": feedback["llm_response"],
-                "extracted_insights": extracted_insights
-            })
-
-        print("Visualization analysis with LLM completed.")
-
-        # Step 6: Generate narrative using insights, advanced results, and visualization feedback
-        markdown = narrate_story(
-            summary=summary,
-            insights=insights,
-            advanced_results=advanced_results,
-            visualization_data=llm_feedback,
-            filename=args.filename
-        )
-        print("Narrative generated successfully.")
-
-        # Step 7: Save outputs
-        save_outputs(markdown)
-        print("Outputs saved successfully.")
-
-        # Step 8: Organize files into a folder
-        organize_files_into_folder(args.filename[:-4])
-        print(f"All outputs organized into folder: {args.filename[:-4]}")
-
+        args = parse_arguments()
+        df, summary, insights, advanced_results = perform_data_analysis(args.filename)
+        llm_feedback = handle_visualization_analysis(df, args.filename)
+        generate_and_save_narrative(summary, insights, advanced_results, llm_feedback, args.filename)
+        print("Narrative generated and outputs saved successfully.")
     except Exception as e:
         logging.error(f"An error occurred during execution: {e}")
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
