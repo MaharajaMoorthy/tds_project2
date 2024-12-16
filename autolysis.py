@@ -615,23 +615,30 @@ def generate_boxplots(df, output_file="outlier_boxplots.png"):
         print("No numeric columns found for generating boxplots.")
         return
 
-    # Create a boxplot for each numeric column
-    plt.figure(figsize=(15, 5 * len(numeric_columns)))  # Dynamically adjust height
+    plt.figure(figsize=(15, 5 * len(numeric_columns)))  # Dynamically adjust figure size
     for i, column in enumerate(numeric_columns):
         try:
             plt.subplot((len(numeric_columns) + 2) // 3, 3, i + 1)
-            sns.boxplot(y=df[column])
-            plt.title(f'Boxplot of {column}')
+            sns.boxplot(y=df[column], color='skyblue')
+            plt.title(f'Boxplot of {column}: Distribution and Outliers', fontsize=12)
             plt.xlabel("Values")
             plt.ylabel(column)
+            plt.grid(True, linestyle='--', alpha=0.7)
+
+            # Embed metadata directly
+            median = df[column].median()
+            q1 = df[column].quantile(0.25)
+            q3 = df[column].quantile(0.75)
+            plt.text(0.5, median, f'Median: {median:.2f}', ha='center', va='bottom', fontsize=10, color='blue')
+            plt.text(0.5, q1, f'Q1: {q1:.2f}', ha='center', va='bottom', fontsize=10, color='green')
+            plt.text(0.5, q3, f'Q3: {q3:.2f}', ha='center', va='bottom', fontsize=10, color='red')
         except Exception as e:
             print(f"Error creating boxplot for column '{column}': {e}")
             continue
 
     plt.tight_layout()
-
     try:
-        plt.savefig(output_file, bbox_inches='tight')  # Save as a PNG file
+        plt.savefig(output_file, bbox_inches='tight')  # Save as PNG file
         print(f"Boxplots saved as {output_file}")
     except Exception as e:
         print(f"Error saving boxplots: {e}")
@@ -693,18 +700,25 @@ def generate_heatmap(df, output_file="correlation_heatmap.png"):
     correlation_matrix = df[numeric_columns].corr()
 
     plt.figure(figsize=(10, 8))
-    sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap="coolwarm", square=True)
-    plt.title("Correlation Heatmap")
+    sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap="coolwarm", square=True, cbar_kws={'label': 'Correlation Coefficient'})
+    plt.title("Correlation Heatmap: Relationships Between Features", fontsize=14)
     plt.xlabel("Features")
     plt.ylabel("Features")
 
+    # Embed metadata directly on the chart
+    strong_positive = correlation_matrix.unstack().sort_values(ascending=False).iloc[1]
+    strong_negative = correlation_matrix.unstack().sort_values().iloc[0]
+    plt.figtext(0.5, -0.1, f"Strongest Positive Correlation: {strong_positive:.2f}\nStrongest Negative Correlation: {strong_negative:.2f}", 
+                ha='center', fontsize=10, color='blue', wrap=True)
+
     try:
-        plt.savefig(output_file, bbox_inches='tight')  # Save as a PNG file
+        plt.savefig(output_file, bbox_inches='tight')
         print(f"Heatmap saved as {output_file}")
     except Exception as e:
         print(f"Error saving heatmap: {e}")
     finally:
         plt.close()
+    
 
 def extract_heatmap_insights(df):
     """
@@ -756,22 +770,28 @@ def generate_histograms(df, output_file="histograms.png"):
         print("No numeric columns found for generating histograms.")
         return
 
-    plt.figure(figsize=(15, 10))  # Dynamically adjust height
+    plt.figure(figsize=(15, 10))
     for i, column in enumerate(numeric_columns):
         try:
             plt.subplot((len(numeric_columns) + 2) // 3, 3, i + 1)
-            sns.histplot(df[column], kde=True, bins=30)
-            plt.title(f'Histogram of {column}')
+            sns.histplot(df[column], kde=True, bins=30, color='orange', label=f'{column}')
+            plt.title(f'Histogram of {column}: Frequency Distribution', fontsize=12)
             plt.xlabel(column)
             plt.ylabel("Frequency")
+            plt.legend()
+            plt.grid(True, linestyle='--', alpha=0.7)
+
+            # Embed metadata directly on the chart
+            mean = df[column].mean()
+            std = df[column].std()
+            plt.figtext(0.15, 0.85 - 0.05 * i, f'{column} - Mean: {mean:.2f}, Std Dev: {std:.2f}', wrap=True, fontsize=10, color='purple')
         except Exception as e:
             print(f"Error creating histogram for column '{column}': {e}")
             continue
 
     plt.tight_layout()
-
     try:
-        plt.savefig(output_file, bbox_inches='tight')  # Save as a PNG file
+        plt.savefig(output_file, bbox_inches='tight')  # Save as PNG file
         print(f"Histograms saved as {output_file}")
     except Exception as e:
         print(f"Error saving histograms: {e}")
